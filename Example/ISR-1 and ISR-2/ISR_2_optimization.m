@@ -2,7 +2,7 @@ clc
 clear all
 
 % add optimization folder to path
-addpath('C:\Users\senthilvel-a\Documents\_UNC\phython practice\personal files\matlab_bo\project constraints\github repository\Optimization folder');
+addpath('C:\Users\senthilvel-a\.......................\Optimization folder');
 
 
 %% Define optimization problem
@@ -131,7 +131,7 @@ for i = 1:n_opt
 
 
     % initiate ABC-BO
-    next_point = opt_obj.Next_points_to_opt('bayesopt','ABC_BO',ABC_BO,'log_obj', true,'acq_func','expected-improvement-plus','epsilon',0.5);
+    next_point = opt_obj.Next_points_to_opt('bayesopt','ABC_BO',ABC_BO,'log_obj', false,'acq_func','expected-improvement-plus','epsilon',0.5);
 
     temp = next_point.point_1.temp;
     time = next_point.point_1.time;

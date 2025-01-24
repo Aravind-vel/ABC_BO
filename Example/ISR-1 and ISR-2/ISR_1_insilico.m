@@ -52,10 +52,6 @@ Yield = predict(gprmodel,testData_table);
 
 
 
-
-
-
-
 end
 
 

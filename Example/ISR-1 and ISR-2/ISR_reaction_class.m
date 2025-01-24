@@ -1,6 +1,11 @@
 classdef ISR_reaction_class
 
-    properties        
+    %{
+This class file is used to perform the calculation related to the ABC-BO.
+Objective function, Maximum boundary limits that satisfies constraint.  
+    %}
+
+    properties
 
         time_bound = [1,10]; % min
         reag_eq_bound = [1,2]; % eq
@@ -22,13 +27,13 @@ classdef ISR_reaction_class
 
         function [objective_value] = Objective_value_calculation(this, exp_condition, yield)
 
-            % Return objective value [Throughput] g h-1 
+            % Return objective value [Throughput] g h-1
 
             cat_mol = exp_condition.cat_load;
             cat_eq = cat_mol*0.01;
             reag_eq = exp_condition.reag_eq;
             time = exp_condition.time;
-            
+
             % volume of limiting in a fixed total volume
             volume_lim = (this.reag_stock.*this.inj_volume)./(this.reag_stock+this.lim_stock.*(((cat_eq.*this.reag_stock)+(reag_eq.*this.cat_stock))./(this.cat_stock)));
             % final concentration of limiting in total volume
@@ -43,11 +48,11 @@ classdef ISR_reaction_class
 
         function boundary_update = Boundary_update(this, objective_value)
 
-            
-            % variable values favoring objective 
+
+            % variable values favoring objective
             time = min(this.time_bound);
             cat_load = min(this.cat_load_bound);
-            cat_eq = cat_load*0.01; 
+            cat_eq = cat_load*0.01;
             reag_eq = min(this.reag_eq_bound);
 
             %% time boundary limit
@@ -68,13 +73,13 @@ classdef ISR_reaction_class
             cat_eq_limit = [(((this.reag_stock*this.inj_volume)/(volume_lim*this.lim_stock))-(this.reag_stock/this.lim_stock))]*(this.cat_stock/this.reag_stock)-[(reag_eq*this.cat_stock)/this.reag_stock];
             cat_load_limit = cat_eq_limit*100;
 
-           %% boundary update
-           boundary_update.time = time_limit;
-           boundary_update.reag_eq = reag_eq_limit;
-           boundary_update.cat_load = cat_load_limit;
-            
+            %% boundary update
+            boundary_update.time = time_limit;
+            boundary_update.reag_eq = reag_eq_limit;
+            boundary_update.cat_load = cat_load_limit;
+
         end
-        
+
 
 
     end

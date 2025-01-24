@@ -2,7 +2,7 @@ clc
 clear all
 
 % add optimization folder to path
-addpath('C:\Users\senthilvel-a\Documents\_UNC\phython practice\personal files\matlab_bo\project constraints\github repository\Optimization folder');
+addpath('C:\Users\senthilvel-a\..................................\Optimization folder');
 
 
 %% Define optimization problem
@@ -121,10 +121,15 @@ for i = 1:n_opt
     ABC_BO.boundary_update.limit.time = futile_limit.time;
     ABC_BO.boundary_update.limit.cat_load = futile_limit.cat_load;
     ABC_BO.boundary_update.limit.reag_eq = futile_limit.reag_eq;
-
+    
+    % It is not must to provide the variables limit.  In case of
+    % difficulties it can be avoided. Constraint itself take care of futile
+    % experiments.  However, if total number of futile space is
+    % comparatively large - optimization may fail to find the feasible
+    % point
 
     % initiate ABC-BO
-    next_point = opt_obj.Next_points_to_opt('bayesopt','ABC_BO',ABC_BO,'log_obj', true,'acq_func','expected-improvement-plus','epsilon',0.5);
+    next_point = opt_obj.Next_points_to_opt('bayesopt','ABC_BO',ABC_BO,'log_obj', false,'acq_func','expected-improvement-plus','epsilon',0.5);
 
     temp = next_point.point_1.temp;
     time = next_point.point_1.time;
