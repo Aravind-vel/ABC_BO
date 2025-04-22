@@ -175,17 +175,28 @@ classdef Optimization_algorithm
                 end
                 obj_constraints = fieldnames(optimization_details.objective_constraints);
                 n_obj_constraints = numel(obj_constraints);
-                
+                constraint_violations = zeros(size(X_initial_bayes,1),n_obj_constraints); % variable initialization
+                coupled_constraint_deterministic = false(1, n_obj_constraints);
+
+                                
                         % calculating constraint violations
                         results_struct = table2struct(problem_details.results);
-                        for i = 1:size(X_initial_bayes,1)
-                            for j = 1:n_obj_constraints
-                                text_name = char(obj_constraints{j});
-                                constraint_violations(i,j) = optimization_details.objective_constraints.(text_name)(results_struct(i));
+                        for j = 1:n_obj_constraints
+                            text_name = char(obj_constraints{j});
+                            % if constraint violation are passed as array
+                            if isnumeric(optimization_details.objective_constraints.(text_name))
+                                constraint_violations(:,j) = optimization_details.objective_constraints.(text_name);
+                            else
+                                for i = 1:size(X_initial_bayes,1)
+                                    constraint_violations(i,j) = optimization_details.objective_constraints.(text_name)(results_struct(i));
+                                end
                             end
                         end
                         obj_fun = @(x) dummy_fun(x, n_obj_constraints);
                 
+            end
+            if ~exist("coupled_constraint_deterministic","var")
+                coupled_constraint_deterministic = [];
             end
 
             %% variable constraints
@@ -411,7 +422,7 @@ classdef Optimization_algorithm
             bayes_obj = bayesopt(obj_fun, vars, 'MaxObjectiveEvaluations', n_point, 'InitialX', X_initial_bayes,...
                 'InitialObjective',Y_initial_bayes,'AcquisitionFunctionName',optimization_details.acq_func, ...
                 'NumCoupledConstraints', n_obj_constraints,'InitialConstraintViolations',constraint_violations,...
-                'XConstraintFcn', variable_constraint,...
+                'XConstraintFcn', variable_constraint,'AreCoupledConstraintsDeterministic',coupled_constraint_deterministic,...
                 'ExplorationRatio', optimization_details.epsilon,'Verbose',0,PlotFcn=[]);
 
             % save next point
