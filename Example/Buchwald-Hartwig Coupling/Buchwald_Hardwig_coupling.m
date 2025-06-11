@@ -1,5 +1,9 @@
 classdef Buchwald_Hardwig_coupling
 
+    % Class file to calculate the objective and other parameters needed for
+    % running ABC-BO. This is file is specific for each reaction
+    % optimization problem. 
+
 
     properties
         
@@ -155,6 +159,10 @@ classdef Buchwald_Hardwig_coupling
         end
 
         function boundary_update = Boundary_update(this, objective_value)
+
+            % Identifies the limit of variables that influence the
+            % objective calculation to exclude futile region in the search
+            % space
 
             % exp condition associated with favoring calculation of objective
             exp_condition = struct();

@@ -1,8 +1,12 @@
 clc
 clear all
 
-% add optimization folder to path
-addpath('C:\Users\senthilvel-a\..................................\Optimization folder');
+%%%%%% IMPORTANT %%%%%%%%
+    
+% Add Optimization folder to path
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 %% Define optimization problem

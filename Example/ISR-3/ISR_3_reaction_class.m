@@ -1,9 +1,8 @@
 classdef ISR_3_reaction_class
 
-    %{
-This class file is used to perform the calculation related to the ABC-BO.
-Objective function, Maximum boundary limits that satisfies constraint.  
-    %}
+    % Class file to calculate the objective and other parameters needed for
+    % running ABC-BO. This is file is specific for each reaction
+    % optimization problem. 
 
     properties
 
@@ -33,15 +32,17 @@ Objective function, Maximum boundary limits that satisfies constraint.
 
         function boundary_update = Boundary_update(this, objective_value)
 
-            % variable values favoring objective
+            % Identifies the limit of variables that influence the
+            % objective calculation to exclude futile region in the search
+            % space
 
+            % variable values favoring objective
             cat_load = min(this.cat_load_bound);
 
-            %%  catalyst loading boundary limit
-
+            %  catalyst loading boundary limit
             cat_load_limit = (this.CA_0*100*0.01)/(objective_value*this.CA_0*0.01);
 
-            %% boundary update
+            % boundary update
 
             boundary_update.cat_load = cat_load_limit;
 

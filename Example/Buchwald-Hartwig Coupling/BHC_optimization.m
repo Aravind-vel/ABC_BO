@@ -1,15 +1,17 @@
 clc 
 clear all
 
-% add optimization folder to path
-addpath('C:\Users\senthilvel-a\Documents\_UNC\phython practice\personal files\matlab_bo\project constraints\github repository\Optimization folder');
+%%%%%% IMPORTANT %%%%%%%%
+    
+% Add Optimization folder to path
 
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Define optimization problem
 
 problem_details = struct();
 
-% make sure the variable labels are same as in the reaction class file
+% make sure the variable labels are same as in the reaction class file (Buckwald_Hardwig_coupling.m)
 
 % continuous variables
 problem_details.n_cont_var = 1; % cat. loading
