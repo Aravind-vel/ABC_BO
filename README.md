@@ -36,7 +36,6 @@ As explained in the paper, we also perform boundary reduction for certain variab
 
 ### 1. **Requirements**
 - MATLAB 
-- Optimization Toolbox
 - Statistics and Machine Learning Toolbox
 
 ### 2. **Run an example**
